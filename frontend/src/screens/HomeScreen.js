@@ -6,15 +6,17 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import {listProducts} from '../actions/productActions'
 
-function HomeScreen() {
+function HomeScreen({history}) {
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productList)
     const {error, loading, products} = productList
 
-    useEffect(() => {
-        dispatch(listProducts())
+    let keyword = history.location.search
 
-    }, [dispatch])
+    useEffect(() => {
+        dispatch(listProducts(keyword))
+
+    }, [dispatch, keyword])
 
     return (
         <div>

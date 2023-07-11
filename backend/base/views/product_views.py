@@ -12,7 +12,12 @@ from rest_framework import status
 
 @api_view(['GET'])
 def getProducts(request):
-    products = Product.objects.all().order_by('-created_at')
+    query = request.query_params.get('keyword')
+
+    if query == None:
+        query = ''
+    
+    products = Product.objects.filter(name__icontains=query).order_by('-created_at')
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
@@ -98,12 +103,12 @@ def createProductReview(request, pk):
     alreadyExists = product.review_set.filter(user=user).exists()
 
     if alreadyExists:
-        content = {'details': 'Product already reviewed'}
+        content = {'detail': 'Product already reviewed'}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
     # 2 - No Rating or 0
     elif data['rating'] == 0:
-        content = {'details': 'Please select a rating'}
+        content = {'detail': 'Please select a rating'}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
     # 3 - Create review
