@@ -12,7 +12,7 @@ node_modules
 /coverage
 
 # production
-/build
+#/build
 
 # misc
 .DS_Store
@@ -53,7 +53,7 @@ media
 
 # Distribution / packaging
 .Python
-build/
+#build/
 develop-eggs/
 dist/
 downloads/
