@@ -21,6 +21,10 @@ h2 {
 } */
 
 /* carousel */
+.bg-dark {
+    border-radius: 5%;
+}
+
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item-active {
